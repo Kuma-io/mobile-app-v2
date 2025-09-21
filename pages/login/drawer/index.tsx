@@ -1,4 +1,4 @@
-import { Drawer } from '~/components/ui/drawer';
+import { Modal } from '~/components/ui';
 import { Text, Keyboard, KeyboardAvoidingView, Platform, TextInput } from 'react-native';
 import { useCallback, useEffect, useRef, useState } from 'react';
 
@@ -45,8 +45,8 @@ export function LoginDrawer({ isVisible, onClose }: { isVisible: boolean; onClos
   //   }, [otp, onClose]);
 
   return (
-    <Drawer isVisible={isVisible} onClose={onClose} negative>
+    <Modal visible={isVisible} onClose={onClose}>
       <Text>Login Drawer Content</Text>
-    </Drawer>
+    </Modal>
   );
 }

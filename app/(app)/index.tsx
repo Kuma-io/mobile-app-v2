@@ -1,7 +1,7 @@
-import { router } from 'expo-router';
-import { Button } from '~/components/ui/button';
+import { Link, router } from 'expo-router';
+import { Button, Text } from '~/components/ui';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { Header, Actions, Balance } from '~/pages/home';
+import { Header, Actions, Balance, Chart } from '~/pages/home';
 import { View, ScrollView } from 'react-native';
 
 export default function Home() {
@@ -12,15 +12,10 @@ export default function Home() {
         <View className="mb-2 w-full flex-1 flex-col items-center justify-start">
           <Balance />
           <View className="my-2 h-px w-full" />
+          <Chart />
         </View>
       </ScrollView>
       <Actions />
-      <Button
-        text="Go to Login"
-        onPress={() => {
-          router.push('/login');
-        }}
-      />
     </SafeAreaView>
   );
 }

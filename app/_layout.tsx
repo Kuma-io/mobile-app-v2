@@ -25,7 +25,7 @@ function Content() {
   if (!fontsLoaded) return null;
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
-      <Stack screenOptions={{ headerShown: false, animation: 'none' }}>
+      <Stack screenOptions={{ headerShown: false }}>
         <Stack.Screen name="(app)" />
         <Stack.Screen name="login" />
       </Stack>

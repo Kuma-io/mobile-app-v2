@@ -3,14 +3,39 @@ import { Text } from '~/components/ui';
 
 export function Balance() {
   return (
-    <View className="w-full items-start justify-center px-8">
-      <Text variant="subheading">Balance</Text>
-      <Text className="font-sans-extrabold text-4xl tracking-[0.05em]">$2500.00</Text>
-      <View className="w-full flex-row items-center justify-start">
-        <Text className={`font-sans-medium text-xs text-black/90`}>▲</Text>
-        <Text className={`font-sans-black tracking-[0.05em] text-black/90`}>{`$0.00123 `}</Text>
-        <Text className={`font-sans-extrabold text-sm tracking-[0.05em] text-black/90`}>$</Text>
-      </View>
+    <View className="mt-6 w-full items-start justify-center px-8">
+      <Text variant="subheading">Total</Text>
+      <Total />
+      <Change />
+    </View>
+  );
+}
+
+function Total() {
+  return (
+    <View className="flex-row items-center justify-start">
+      <Text variant="heading" className="text-4xl tracking-wide ">
+        12.500,00
+      </Text>
+      <Text variant="heading" className="mb-1 ml-1 text-3xl">
+        $
+      </Text>
+    </View>
+  );
+}
+
+function Change() {
+  return (
+    <View className="flex-row items-center justify-start">
+      <Text variant="none" className="text-lg">
+        ▲
+      </Text>
+      <Text variant="none" className="font-inter-bold text-lg tracking-tight">
+        0.00123
+      </Text>
+      <Text variant="none" className="ml-[0.1rem] font-inter-black text-base">
+        %
+      </Text>
     </View>
   );
 }

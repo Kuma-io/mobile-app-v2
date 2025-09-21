@@ -1,4 +1,4 @@
-import { Animated, Pressable, PressableProps, StyleSheet } from 'react-native';
+import { Animated, Pressable, PressableProps, StyleSheet, View } from 'react-native';
 import { triggerHaptic } from '~/lib/haptics';
 import { useRef, useState } from 'react';
 import { ClassValue } from 'clsx';
@@ -7,9 +7,12 @@ import { Text } from './text';
 
 const ButtonVariantClasses = {
   default: '',
-  floating: 'bg-fg rounded-2xl h-16 w-[42vw] flex-row items-center justify-between px-3 border-2',
+  floating:
+    'bg-fg rounded-2xl h-16 w-[42vw] flex-row items-center justify-between px-3 border-2 border-transparent',
   'floating-negative':
-    'bg-bg rounded-2xl h-16 w-[42vw] flex-row items-center justify-start gap-2 px-3',
+    'bg-bg rounded-2xl h-16 w-[42vw] flex-row items-center justify-between gap-2 px-3 border-2 border-transparent',
+  'full-width': 'bg-fg rounded-2xl h-16 w-full flex-row items-center justify-center px-3',
+  'full-width-negative': 'bg-bg rounded-2xl h-14 w-full flex-row items-center justify-center px-3',
   icon: 'h-10 w-10 rounded-xl items-center justify-center bg-fg',
   text: 'p-1 flex-row items-center justify-around',
 } as const;
@@ -20,16 +23,20 @@ const TextVariantClasses = {
   default: '',
   floating: 'text-bg font-inter-extrabold text-base tracking-tighter',
   'floating-negative': 'font-inter-extrabold text-base tracking-tighter',
+  'full-width': 'text-bg font-inter-extrabold text-xl tracking-tighter',
+  'full-width-negative': 'font-inter-extrabold text-fg text-xl tracking-tighter',
   icon: '',
   text: 'text-fg/70 font-inter-extrabold text-sm tracking-tighter',
 } as const;
 
 interface ButtonProps extends Omit<PressableProps, 'className'> {
-  text?: string;
-  onPress?: () => void;
-  icon?: React.ReactNode;
-  variant?: ButtonVariant;
   className?: ClassValue;
+  text?: string;
+  textClassName?: ClassValue;
+  icon?: React.ReactNode;
+  iconPosition?: 'left' | 'right';
+  variant?: ButtonVariant;
+  onPress?: () => void;
   shadow?: boolean;
   disabled?: boolean;
   animateBackground?: boolean;
@@ -39,8 +46,10 @@ export function Button({
   text,
   onPress,
   icon,
+  iconPosition = 'right',
   variant = 'default',
   className,
+  textClassName,
   shadow = variant === 'floating',
   disabled = false,
   animateBackground = false,
@@ -115,12 +124,15 @@ export function Button({
             }}
           />
         )}
+        {icon && iconPosition === 'left' && icon}
         {Text && text && (
-          <Text variant="none" className={cn(TextVariantClasses[variant])}>
+          <Text
+            variant="none"
+            className={cn(TextVariantClasses[variant]) + ' ' + cn(textClassName)}>
             {String(text)}
           </Text>
         )}
-        {icon}
+        {icon && iconPosition === 'right' && icon}
       </Animated.View>
     </Pressable>
   );

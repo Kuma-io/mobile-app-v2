@@ -2,6 +2,7 @@ import { ChevronRight } from 'lucide-react-native';
 import { useState } from 'react';
 import { View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { router } from 'expo-router';
 
 import { Button } from '~/components/ui';
 
@@ -27,7 +28,7 @@ export function Actions() {
           text="Withdraw"
           icon={<ChevronRight color="black" size={16} strokeWidth={3} />}
           onPress={() => {
-            setIsWithdrawModalVisible(true);
+            router.push('/login');
           }}
         />
         <Button
