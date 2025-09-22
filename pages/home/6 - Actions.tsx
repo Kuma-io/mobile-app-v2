@@ -1,4 +1,4 @@
-import { ChevronRight } from 'lucide-react-native';
+import { Minus, Plus } from 'lucide-react-native';
 import { useState } from 'react';
 import { View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -22,24 +22,37 @@ export function Actions() {
           right: 0,
           zIndex: 10,
         }}
-        className="w-full flex-row items-center justify-around px-8 py-4">
-        <Button
-          variant="floating-negative"
-          text="Withdraw"
-          icon={<ChevronRight color="black" size={16} strokeWidth={3} />}
-          onPress={() => {
-            router.push('/login');
-          }}
-        />
-        <Button
-          variant="floating"
-          text="Deposit"
-          icon={<ChevronRight color="white" size={16} strokeWidth={3} />}
-          onPress={() => {
-            setIsDepositModalVisible(true);
-          }}
-        />
+        className="w-full flex-row justify-between px-8 py-4">
+        <Withdraw />
+        <Deposit />
       </View>
     </>
+  );
+}
+
+function Withdraw() {
+  return (
+    <Button
+      variant="floating-negative"
+      text="Withdraw"
+      // className="border-black"
+      icon={<Minus color="black" size={16} strokeWidth={3.5} />}
+      onPress={() => {
+        router.push('/login');
+      }}
+    />
+  );
+}
+
+function Deposit() {
+  return (
+    <Button
+      variant="floating"
+      text="Deposit"
+      icon={<Plus color="white" size={16} strokeWidth={3.5} />}
+      onPress={() => {
+        // setIsDepositModalVisible(true);
+      }}
+    />
   );
 }

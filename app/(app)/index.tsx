@@ -1,7 +1,7 @@
 import { Link, router } from 'expo-router';
 import { Button, Text } from '~/components/ui';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { Header, Actions, Balance, Chart } from '~/pages/home';
+import { Header, Balance, Chart, Performances, Transactions, Actions } from '~/pages/home';
 import { View, ScrollView } from 'react-native';
 
 export default function Home() {
@@ -9,11 +9,11 @@ export default function Home() {
     <SafeAreaView className="flex-1 bg-bg">
       <Header />
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-        <View className="mb-2 w-full flex-1 flex-col items-center justify-start">
-          <Balance />
-          <View className="my-2 h-px w-full" />
-          <Chart />
-        </View>
+        <Balance />
+        <Chart />
+        <Performances />
+        <Transactions />
+        <View className="h-32" />
       </ScrollView>
       <Actions />
     </SafeAreaView>

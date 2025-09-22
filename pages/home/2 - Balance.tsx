@@ -3,7 +3,7 @@ import { Text } from '~/components/ui';
 
 export function Balance() {
   return (
-    <View className="mt-6 w-full items-start justify-center px-8">
+    <View className="mt-6 px-8">
       <Text variant="subheading">Total</Text>
       <Total />
       <Change />
@@ -15,7 +15,7 @@ function Total() {
   return (
     <View className="flex-row items-center justify-start">
       <Text variant="heading" className="text-4xl tracking-wide ">
-        12.500,00
+        12,500.00
       </Text>
       <Text variant="heading" className="mb-1 ml-1 text-3xl">
         $

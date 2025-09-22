@@ -4,6 +4,7 @@ import { useRef, useState } from 'react';
 import { ClassValue } from 'clsx';
 import { cn } from '~/lib/utils';
 import { Text } from './text';
+import { ChevronRight } from 'lucide-react-native';
 
 const ButtonVariantClasses = {
   default: '',
@@ -13,6 +14,7 @@ const ButtonVariantClasses = {
     'bg-bg rounded-2xl h-16 w-[42vw] flex-row items-center justify-between gap-2 px-3 border-2 border-transparent',
   'full-width': 'bg-fg rounded-2xl h-16 w-full flex-row items-center justify-center px-3',
   'full-width-negative': 'bg-bg rounded-2xl h-14 w-full flex-row items-center justify-center px-3',
+  settings: 'bg-bg rounded-2xl py-2 w-full flex-row items-center justify-start gap-2',
   icon: 'h-10 w-10 rounded-xl items-center justify-center bg-fg',
   text: 'p-1 flex-row items-center justify-around',
 } as const;
@@ -25,17 +27,20 @@ const TextVariantClasses = {
   'floating-negative': 'font-inter-extrabold text-base tracking-tighter',
   'full-width': 'text-bg font-inter-extrabold text-xl tracking-tighter',
   'full-width-negative': 'font-inter-extrabold text-fg text-xl tracking-tighter',
+  settings: 'font-inter-extrabold text-xl tracking-tighter',
   icon: '',
   text: 'text-fg/70 font-inter-extrabold text-sm tracking-tighter',
 } as const;
 
 interface ButtonProps extends Omit<PressableProps, 'className'> {
+  variant?: ButtonVariant;
   className?: ClassValue;
   text?: string;
   textClassName?: ClassValue;
+  description?: string;
   icon?: React.ReactNode;
   iconPosition?: 'left' | 'right';
-  variant?: ButtonVariant;
+  replaceChevronIcon?: React.ReactNode;
   onPress?: () => void;
   shadow?: boolean;
   disabled?: boolean;
@@ -43,13 +48,15 @@ interface ButtonProps extends Omit<PressableProps, 'className'> {
 }
 
 export function Button({
-  text,
-  onPress,
-  icon,
-  iconPosition = 'right',
   variant = 'default',
   className,
+  text,
   textClassName,
+  description,
+  icon,
+  iconPosition = 'right',
+  replaceChevronIcon,
+  onPress,
   shadow = variant === 'floating',
   disabled = false,
   animateBackground = false,
@@ -126,13 +133,26 @@ export function Button({
         )}
         {icon && iconPosition === 'left' && icon}
         {Text && text && (
-          <Text
-            variant="none"
-            className={cn(TextVariantClasses[variant]) + ' ' + cn(textClassName)}>
-            {String(text)}
-          </Text>
+          <View className={cn(description ? 'flex-1' : '')}>
+            <Text
+              variant="none"
+              className={cn(TextVariantClasses[variant]) + ' ' + cn(textClassName)}>
+              {String(text)}
+            </Text>
+            {description && (
+              <Text variant="none" className="font-inter-semibold text-sm text-fg/50">
+                {String(description)}
+              </Text>
+            )}
+          </View>
         )}
         {icon && iconPosition === 'right' && icon}
+        {variant === 'settings' &&
+          (replaceChevronIcon ? (
+            replaceChevronIcon
+          ) : (
+            <ChevronRight size={24} className="absolute right-3 top-1/2 -translate-y-1/2" />
+          ))}
       </Animated.View>
     </Pressable>
   );

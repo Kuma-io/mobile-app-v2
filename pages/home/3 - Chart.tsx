@@ -8,7 +8,7 @@ import { Text } from '~/components/ui';
 export function Chart() {
   const [selectedTimeFrame, setSelectedTimeFrame] = useState<TimeFrame>('1D');
   return (
-    <View className="w-full">
+    <View className="mt-4 w-full">
       <TimeFrames timeFrame={selectedTimeFrame} onTimeFrameChange={setSelectedTimeFrame} />
       <Graph timeFrame={selectedTimeFrame} />
     </View>
@@ -50,7 +50,11 @@ export function Graph({ timeFrame }: { timeFrame: TimeFrame }) {
   ];
 
   return (
-    <></>
+    <View className="flex aspect-[16/9] w-full items-center justify-center border-2">
+      <Text variant="subheading" className="text-fg">
+        No data available
+      </Text>
+    </View>
     // <LineChart.Provider
     //   data={chartData}
     //   onCurrentIndexChange={(index) => {

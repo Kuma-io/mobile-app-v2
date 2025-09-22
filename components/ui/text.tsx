@@ -13,7 +13,7 @@ const variantClasses = {
 type TextVariant = keyof typeof variantClasses;
 
 interface TextProps extends Omit<RNTextProps, 'className'> {
-  children: string;
+  children: RNTextProps['children'];
   variant?: TextVariant;
   className?: ClassValue;
 }
