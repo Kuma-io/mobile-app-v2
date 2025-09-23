@@ -45,6 +45,7 @@ interface ButtonProps extends Omit<PressableProps, 'className'> {
   shadow?: boolean;
   disabled?: boolean;
   animateBackground?: boolean;
+  pressedBackgroundOpacity?: number;
 }
 
 export function Button({
@@ -60,6 +61,7 @@ export function Button({
   shadow = variant === 'floating',
   disabled = false,
   animateBackground = false,
+  pressedBackgroundOpacity = 0.4,
   ...props
 }: ButtonProps) {
   const translate = useRef(new Animated.ValueXY({ x: 0, y: 0 })).current;
@@ -76,7 +78,7 @@ export function Button({
         useNativeDriver: true,
       }),
       Animated.spring(backgroundOpacity, {
-        toValue: pressed ? 0.4 : 0,
+        toValue: pressed ? pressedBackgroundOpacity : 0,
         useNativeDriver: true,
         friction: 20,
         tension: 200,
@@ -88,7 +90,7 @@ export function Button({
       disabled={disabled}
       onPressIn={() => {
         animatePress(true);
-        triggerHaptic('medium');
+        triggerHaptic('heavy');
       }}
       onPressOut={() => {
         animatePress(false);

@@ -88,13 +88,13 @@ export const Modal: React.FC<ModalProps> = ({ visible, onClose, children }) => {
       Animated.timing(translateY, {
         toValue: SCREEN_HEIGHT,
         useNativeDriver: true,
-        duration: 250,
+        duration: 400,
         easing: Easing.bezier(0.16, 1, 0.3, 1),
       }),
       Animated.timing(backdropOpacity, {
         toValue: 0,
         useNativeDriver: true,
-        duration: 250,
+        duration: 400,
         easing: Easing.bezier(0.16, 1, 0.3, 1),
       }),
     ]).start(() => {

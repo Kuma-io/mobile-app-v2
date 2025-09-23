@@ -23,10 +23,12 @@ function TimeFrames({
   onTimeFrameChange: (timeFrame: TimeFrame) => void;
 }) {
   return (
-    <View className="flex-row gap-6 pl-8">
+    <View className="flex-row gap-8 pl-8">
       {timeFrames.map((frame) => (
         <TouchableOpacity key={frame} onPress={() => onTimeFrameChange(frame)}>
-          <Text variant="subheading" className={`${timeFrame === frame ? 'text-fg' : ''}`}>
+          <Text
+            variant="subheading"
+            className={`text-base ${timeFrame === frame ? 'text-fg/80' : ''}`}>
             {frame}
           </Text>
         </TouchableOpacity>

@@ -3,7 +3,7 @@ import { View } from 'react-native';
 import { Button } from '~/components/ui/button';
 import { ChevronRight } from 'lucide-react-native';
 import { useState } from 'react';
-import { MailDrawer } from './drawer/1 - Mail';
+import { Drawer } from './drawer';
 import { useRouter } from 'expo-router';
 
 export function Actions() {
@@ -25,7 +25,7 @@ export function Actions() {
           icon={<ChevronRight color="white" size={16} strokeWidth={3} />}
         />
       </View>
-      <MailDrawer open={open} setOpen={setOpen} />
+      <Drawer open={open} setOpen={setOpen} />
     </>
   );
 }

@@ -1,37 +1,44 @@
-import { Modal, Button, Text } from '~/components/ui';
+import { Button, Text } from '~/components/ui';
 import AppleSvg from '~/assets/svg/apple.svg';
 import GoogleSvg from '~/assets/svg/google.svg';
 import { View, TextInput, KeyboardAvoidingView, Platform } from 'react-native';
 import { ChevronRight } from 'lucide-react-native';
-import React, { useRef, useEffect } from 'react';
+import { useState } from 'react';
 
-export function MailDrawer({ open, setOpen }: { open: boolean; setOpen: (open: boolean) => void }) {
+export function MailDrawer({ setStep }: { setStep: (step: number) => void }) {
+  const [email, setEmail] = useState('');
   return (
-    <Modal visible={open} onClose={() => setOpen(false)}>
-      <KeyboardAvoidingView
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-        keyboardVerticalOffset={Platform.OS === 'ios' ? 78 : 0}
-        className="flex-1">
-        <Text variant="heading" className="text-bg">
-          Choose your login method.
-        </Text>
-        <Email />
-        <Socials />
-        <Actions />
-      </KeyboardAvoidingView>
-    </Modal>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      keyboardVerticalOffset={Platform.OS === 'ios' ? 78 : 0}
+      className="flex-1">
+      <Text variant="heading" className="text-bg">
+        Choose your login method.
+      </Text>
+      <Email email={email} setEmail={setEmail} />
+      <Socials />
+      <Actions email={email} setStep={setStep} />
+    </KeyboardAvoidingView>
   );
 }
 
-function Email() {
+function Email({
+  // inputRef,
+  email,
+  setEmail,
+}: {
+  // inputRef?: React.RefObject<TextInput>;
+  email?: string;
+  setEmail?: (email: string) => void;
+}) {
   return (
     <View className="mt-8">
       <Text variant="subheading">With your email</Text>
       <View className="mt-2 w-full gap-4">
         <TextInput
-          //   ref={inputRef}
-          //   value={email}
-          //   onChangeText={setEmail}
+          // ref={inputRef}
+          value={email}
+          onChangeText={setEmail}
           placeholder="johndoe@gmail.com"
           placeholderTextColor="rgba(255, 255, 255, 0.3)"
           keyboardType="email-address"
@@ -49,7 +56,7 @@ function Email() {
 
 function Socials() {
   return (
-    <View className="mt-8">
+    <View className="mt-8 flex-1 ">
       {/* <View className="w-full flex-row items-center justify-center gap-3"> */}
       <Text variant="subheading">Or use</Text>
       {/* <View className="h-[1px] flex-1 bg-gray-200" /> */}
@@ -74,13 +81,18 @@ function Socials() {
   );
 }
 
-function Actions() {
+function Actions({ email, setStep }: { email: string; setStep: (step: number) => void }) {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   return (
-    <View className="w-full flex-1 flex-row items-end justify-between p-4">
+    <View className="w-full flex-row justify-between p-4 ">
       <View className="flex-1" />
       <Button
         variant="floating-negative"
-        text="Withdraw"
+        text="Access"
+        disabled={!emailRegex.test(email)}
+        onPress={() => {
+          setStep(2);
+        }}
         icon={<ChevronRight color="black" size={16} strokeWidth={3} />}
       />
     </View>

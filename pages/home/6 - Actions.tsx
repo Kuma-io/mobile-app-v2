@@ -5,12 +5,10 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { router } from 'expo-router';
 
 import { Button } from '~/components/ui';
+import { DepositDrawer, WithdrawDrawer } from './drawer';
 
 export function Actions() {
   const insets = useSafeAreaInsets();
-  const [isWithdrawModalVisible, setIsWithdrawModalVisible] = useState(false);
-  const [isDepositModalVisible, setIsDepositModalVisible] = useState(false);
-  const [isOnRampModalVisible, setIsOnRampModalVisible] = useState(false);
   return (
     <>
       <View
@@ -45,14 +43,18 @@ function Withdraw() {
 }
 
 function Deposit() {
+  const [open, setOpen] = useState(false);
   return (
-    <Button
-      variant="floating"
-      text="Deposit"
-      icon={<Plus color="white" size={16} strokeWidth={3.5} />}
-      onPress={() => {
-        // setIsDepositModalVisible(true);
-      }}
-    />
+    <>
+      <Button
+        variant="floating"
+        text="Deposit"
+        icon={<Plus color="white" size={16} strokeWidth={3.5} />}
+        onPress={() => {
+          setOpen(true);
+        }}
+      />
+      <WithdrawDrawer open={open} setOpen={setOpen} />
+    </>
   );
 }

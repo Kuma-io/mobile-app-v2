@@ -1,5 +1,6 @@
 import { View } from 'react-native';
 import { Text } from '~/components/ui';
+import { formatNumber } from '~/lib/formatNumber';
 
 export function Performances() {
   return (
@@ -11,7 +12,7 @@ export function Performances() {
         <Performance title="Profit" value="0.0015 $" />
         <Performance title="Principal" value="12 500.78 $" />
         <Performance title="Yield" value="5.35 %" />
-        <Performance title="Supply" value="35.8M $" />
+        <Performance title="Supply" value={formatNumber(3687000) + ' $'} />
       </View>
     </View>
   );

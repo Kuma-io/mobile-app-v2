@@ -2,6 +2,7 @@ import { View } from 'react-native';
 import { Text } from '~/components/ui';
 import { Minus, Plus, Sparkles } from 'lucide-react-native';
 import { Transaction as TransactionType, transactions } from '~/lib/transactions';
+import { formatBalance } from '~/lib/formatBalance';
 
 export function Transactions() {
   return (
@@ -12,7 +13,7 @@ export function Transactions() {
       <View className="mt-4 w-full rounded-lg border border-fg/20">
         {transactions.map((transaction, index) => (
           <View key={index}>
-            <Transaction transaction={transaction} amount="100.00" />
+            <Transaction transaction={transaction} amount={200} />
             {index < transactions.length - 1 && <View className="h-[1px] bg-fg/20" />}
           </View>
         ))}
@@ -21,7 +22,7 @@ export function Transactions() {
   );
 }
 
-function Transaction({ transaction, amount }: { transaction: TransactionType; amount: string }) {
+function Transaction({ transaction, amount }: { transaction: TransactionType; amount: number }) {
   const Icon = () => {
     switch (transaction) {
       case 'Deposit':
@@ -33,18 +34,40 @@ function Transaction({ transaction, amount }: { transaction: TransactionType; am
     }
   };
 
+  const TextColor = () => {
+    switch (transaction) {
+      case 'Deposit':
+        return 'text-blue-900';
+      case 'Withdraw':
+        return 'text-red-900';
+      case 'Reward':
+        return 'text-green-900';
+    }
+  };
+
+  const Sign = () => {
+    switch (transaction) {
+      case 'Deposit':
+        return '+';
+      case 'Withdraw':
+        return '-';
+      case 'Reward':
+        return '+';
+    }
+  };
+
   return (
     <View className="w-full flex-row items-center justify-between p-3">
       <View className="flex-row items-center gap-2">
         <View className="w-[16px] items-center justify-center">
           <Icon />
         </View>
-        <Text variant="heading" className="text-sm text-fg/70">
+        <Text variant="heading" className="text-sm">
           {transaction}
         </Text>
       </View>
-      <Text variant="heading" className="text-sm ">
-        {amount} $
+      <Text variant="heading" className={`text-sm ${TextColor()}`}>
+        {Sign()} {formatBalance(amount)} $
       </Text>
     </View>
   );
