@@ -27,7 +27,7 @@ function Content() {
     <GestureHandlerRootView style={{ flex: 1 }}>
       <Stack screenOptions={{ headerShown: false, animation: 'none' }}>
         <Stack.Screen name="(app)" />
-        <Stack.Screen name="(login)" />
+        <Stack.Screen name="login" />
       </Stack>
       <Toaster invert />
     </GestureHandlerRootView>

@@ -13,7 +13,11 @@ export function Transactions() {
       <View className="mt-4 w-full rounded-lg border border-fg/20">
         {transactions.map((transaction, index) => (
           <View key={index}>
-            <Transaction transaction={transaction} amount={200} />
+            <Transaction
+              transaction={transaction}
+              date={new Date().toLocaleDateString()}
+              amount={200}
+            />
             {index < transactions.length - 1 && <View className="h-[1px] bg-fg/20" />}
           </View>
         ))}
@@ -22,15 +26,23 @@ export function Transactions() {
   );
 }
 
-function Transaction({ transaction, amount }: { transaction: TransactionType; amount: number }) {
+function Transaction({
+  transaction,
+  date,
+  amount,
+}: {
+  transaction: TransactionType;
+  date: string;
+  amount: number;
+}) {
   const Icon = () => {
     switch (transaction) {
       case 'Deposit':
-        return <Plus color="black" size={16} strokeWidth={3.5} />;
+        return <Plus color="black" size={18} strokeWidth={3.5} />;
       case 'Withdraw':
-        return <Minus color="black" size={16} strokeWidth={3.5} />;
+        return <Minus color="black" size={18} strokeWidth={3.5} />;
       case 'Reward':
-        return <Sparkles color="black" size={14} strokeWidth={1.5} fill={'black'} />;
+        return <Sparkles color="black" size={16} strokeWidth={1.5} fill={'black'} />;
     }
   };
 
@@ -62,11 +74,16 @@ function Transaction({ transaction, amount }: { transaction: TransactionType; am
         <View className="w-[16px] items-center justify-center">
           <Icon />
         </View>
-        <Text variant="heading" className="text-sm">
-          {transaction}
-        </Text>
+        <View>
+          <Text variant="heading" className="text-base">
+            {transaction}
+          </Text>
+          <Text variant="subheading" className="font-inter-semibold text-xs">
+            {date}
+          </Text>
+        </View>
       </View>
-      <Text variant="heading" className={`text-sm ${TextColor()}`}>
+      <Text variant="heading" className={`text-base `}>
         {Sign()} {formatBalance(amount)} $
       </Text>
     </View>

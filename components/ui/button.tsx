@@ -27,7 +27,7 @@ const TextVariantClasses = {
   'floating-negative': 'font-inter-extrabold text-base tracking-tighter',
   'full-width': 'text-bg font-inter-extrabold text-xl tracking-tighter',
   'full-width-negative': 'font-inter-extrabold text-fg text-xl tracking-tighter',
-  settings: 'font-inter-extrabold text-xl tracking-tighter',
+  settings: 'font-inter-extrabold text-lg tracking-tighter',
   icon: '',
   text: 'text-fg/70 font-inter-extrabold text-sm tracking-tighter',
 } as const;

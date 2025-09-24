@@ -52,51 +52,51 @@ export function Graph({ timeFrame }: { timeFrame: TimeFrame }) {
   ];
 
   return (
-    <View className="flex aspect-[16/9] w-full items-center justify-center border-2">
-      <Text variant="subheading" className="text-fg">
-        No data available
-      </Text>
-    </View>
-    // <LineChart.Provider
-    //   data={chartData}
-    //   onCurrentIndexChange={(index) => {
-    //     triggerHaptic('light');
-    //     // updateBalance(chartDataRef.current[index].value);
-    //   }}>
-    //   <LineChart width={375} height={200}>
-    //     <LineChart.Path color="black">
-    //       <LineChart.Dot color="black" at={chartData.length - 1} hasPulse />
-    //     </LineChart.Path>
-    //     <LineChart.CursorCrosshair
-    //       color="black"
-    //       onActivated={() => {
-    //         triggerHaptic('light');
-    //       }}
-    //       onEnded={() => {
-    //         triggerHaptic('light');
-    //         // updateBalance(chartDataRef.current[chartData.length - 1].value);
-    //       }}>
-    //       {/* <LineChart.Tooltip cursorGutter={60} xGutter={16} yGutter={0} /> */}
-    //       <LineChart.Tooltip cursorGutter={50} xGutter={30} yGutter={30}>
-    //         <LineChart.DatetimeText
-    //           format={({ value }) => {
-    //             'worklet';
-    //             const date = new Date(value);
-    //             if (timeFrame === '1H' || timeFrame === '1D') {
-    //               return date.toLocaleTimeString([], {
-    //                 hour: '2-digit',
-    //                 minute: '2-digit',
-    //               });
-    //             }
-    //             return date.toLocaleDateString([], {
-    //               month: 'short',
-    //               day: 'numeric',
-    //             });
-    //           }}
-    //         />
-    //       </LineChart.Tooltip>
-    //     </LineChart.CursorCrosshair>
-    //   </LineChart>
-    // </LineChart.Provider>
+    // <View className="flex aspect-[16/9] w-full items-center justify-center border-2">
+    //   <Text variant="subheading" className="text-fg">
+    //     No data available
+    //   </Text>
+    // </View>
+    <LineChart.Provider
+      data={chartData}
+      onCurrentIndexChange={(index) => {
+        triggerHaptic('light');
+        // updateBalance(chartDataRef.current[index].value);
+      }}>
+      <LineChart width={375} height={200}>
+        <LineChart.Path color="black">
+          <LineChart.Dot color="black" at={chartData.length - 1} hasPulse />
+        </LineChart.Path>
+        <LineChart.CursorCrosshair
+          color="black"
+          onActivated={() => {
+            triggerHaptic('light');
+          }}
+          onEnded={() => {
+            triggerHaptic('light');
+            // updateBalance(chartDataRef.current[chartData.length - 1].value);
+          }}>
+          {/* <LineChart.Tooltip cursorGutter={60} xGutter={16} yGutter={0} /> */}
+          <LineChart.Tooltip cursorGutter={50} xGutter={30} yGutter={30}>
+            <LineChart.DatetimeText
+              format={({ value }) => {
+                'worklet';
+                const date = new Date(value);
+                if (timeFrame === '1H' || timeFrame === '1D') {
+                  return date.toLocaleTimeString([], {
+                    hour: '2-digit',
+                    minute: '2-digit',
+                  });
+                }
+                return date.toLocaleDateString([], {
+                  month: 'short',
+                  day: 'numeric',
+                });
+              }}
+            />
+          </LineChart.Tooltip>
+        </LineChart.CursorCrosshair>
+      </LineChart>
+    </LineChart.Provider>
   );
 }

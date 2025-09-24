@@ -29,16 +29,20 @@ export function Actions() {
 }
 
 function Withdraw() {
+  const [open, setOpen] = useState(false);
   return (
-    <Button
-      variant="floating-negative"
-      text="Withdraw"
-      // className="border-black"
-      icon={<Minus color="black" size={16} strokeWidth={3.5} />}
-      onPress={() => {
-        router.push('/login');
-      }}
-    />
+    <>
+      <Button
+        variant="floating-negative"
+        text="Withdraw"
+        className="border-fg/70"
+        icon={<Minus color="black" size={16} strokeWidth={3.5} />}
+        onPress={() => {
+          setOpen(true);
+        }}
+      />
+      <WithdrawDrawer open={open} setOpen={setOpen} />
+    </>
   );
 }
 
@@ -54,7 +58,7 @@ function Deposit() {
           setOpen(true);
         }}
       />
-      <WithdrawDrawer open={open} setOpen={setOpen} />
+      <DepositDrawer open={open} setOpen={setOpen} />
     </>
   );
 }

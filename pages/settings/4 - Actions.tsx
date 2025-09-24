@@ -30,6 +30,9 @@ export function Actions() {
         <Button
           variant="floating"
           text="Log Out"
+          onPress={() => {
+            router.push('/login');
+          }}
           className="border-red-600 bg-red-600"
           icon={<Unplug color="white" size={16} strokeWidth={3} />}
         />

@@ -23,16 +23,16 @@ function Amount({ amount }: { amount: number }) {
   return (
     <View className="flex-1 items-center justify-center">
       <View className="flex-row items-baseline justify-center">
-        <Text variant="heading" className="text-3xl text-bg/90">
+        {/* <Text variant="heading" className="text-3xl text-bg/90">
           $
-        </Text>
+        </Text> */}
         <Text variant="heading" className="text-6xl text-bg">
           {amount}
         </Text>
-        {/* <Text variant="heading" className="text-2xl text-bg/90">
+        <Text variant="heading" className="text-2xl text-bg/90">
           {' '}
           $US
-        </Text> */}
+        </Text>
       </View>
     </View>
   );

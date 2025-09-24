@@ -10,7 +10,7 @@ export function AmountDrawer({ setStep }: { setStep: (step: number) => void }) {
   return (
     <View className="flex-1">
       <Text variant="heading" className="text-bg">
-        Enter the amount to deposit.
+        Enter the amount to withdraw.
       </Text>
       <Amount amount={amount} />
       <QuickAmount setAmount={setAmount} />
