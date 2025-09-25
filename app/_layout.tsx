@@ -11,6 +11,7 @@ import '../global.css';
 import { Stack } from 'expo-router';
 import { Toaster } from 'sonner-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { PrivyProvider } from '@privy-io/expo';
 
 function Content() {
   let [fontsLoaded] = useFonts({
@@ -35,5 +36,11 @@ function Content() {
 }
 
 export default function Layout() {
-  return <Content />;
+  return (
+    <PrivyProvider
+      appId={'clu7m7ye30hjzey4dp7byyvok'}
+      clientId={'client-WY2jPdxGstKyN1bAmgECTcjE873iTVGiEskRBgZyf6Hir'}>
+      <Content />
+    </PrivyProvider>
+  );
 }

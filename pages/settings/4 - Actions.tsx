@@ -2,11 +2,13 @@ import { ChevronLeft, Unplug } from 'lucide-react-native';
 import { View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { router } from 'expo-router';
+import { usePrivy } from '@privy-io/expo';
 
 import { Button } from '~/components/ui';
 
 export function Actions() {
   const insets = useSafeAreaInsets();
+  const { logout } = usePrivy();
   return (
     <>
       <View
@@ -30,8 +32,8 @@ export function Actions() {
         <Button
           variant="floating"
           text="Log Out"
-          onPress={() => {
-            router.push('/login');
+          onPress={async () => {
+            await logout();
           }}
           className="border-red-600 bg-red-600"
           icon={<Unplug color="white" size={16} strokeWidth={3} />}

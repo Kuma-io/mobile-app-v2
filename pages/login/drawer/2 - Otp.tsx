@@ -2,9 +2,10 @@ import { ChevronLeft, ChevronRight } from 'lucide-react-native';
 import { View, Animated } from 'react-native';
 import { Button, Text, Numpad } from '~/components/ui';
 import { useState, useRef, useEffect } from 'react';
+import { useLoginWithEmail } from '@privy-io/expo';
 import { router } from 'expo-router';
 
-export function OtpDrawer({ setStep }: { setStep: (step: number) => void }) {
+export function OtpDrawer({ email, setStep }: { email: string; setStep: (step: number) => void }) {
   const [otp, setOtp] = useState('');
   return (
     <View className="flex-1">
@@ -13,7 +14,7 @@ export function OtpDrawer({ setStep }: { setStep: (step: number) => void }) {
       </Text>
       <Otp otp={otp} />
       <Numpad setNumber={setOtp} allowDecimals={false} maxValue={999999} isOtpMode />
-      <Actions otp={otp} setStep={setStep} />
+      <Actions otp={otp} email={email} setStep={setStep} />
     </View>
   );
 }
@@ -71,7 +72,16 @@ function Otp({ otp }: { otp: string }) {
   );
 }
 
-function Actions({ otp, setStep }: { otp: string; setStep: (step: number) => void }) {
+function Actions({
+  otp,
+  email,
+  setStep,
+}: {
+  otp: string;
+  email: string;
+  setStep: (step: number) => void;
+}) {
+  const { loginWithCode } = useLoginWithEmail();
   return (
     <View className="w-full flex-row items-center justify-between p-4">
       <Button
@@ -86,8 +96,13 @@ function Actions({ otp, setStep }: { otp: string; setStep: (step: number) => voi
         variant="floating-negative"
         text="Verify"
         disabled={otp.length !== 6}
-        onPress={() => {
-          router.replace('/(app)');
+        onPress={async () => {
+          try {
+            await loginWithCode({ code: otp, email });
+            router.replace('/(app)');
+          } catch (error) {
+            console.error('Login failed:', error);
+          }
         }}
         icon={<ChevronRight color="black" size={16} strokeWidth={3} />}
       />

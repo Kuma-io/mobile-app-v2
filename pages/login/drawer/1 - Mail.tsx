@@ -4,9 +4,17 @@ import GoogleSvg from '~/assets/svg/google.svg';
 import { View, TextInput, KeyboardAvoidingView, Platform } from 'react-native';
 import { ChevronRight } from 'lucide-react-native';
 import { useState } from 'react';
+import { useLoginWithEmail } from '@privy-io/expo';
 
-export function MailDrawer({ setStep }: { setStep: (step: number) => void }) {
-  const [email, setEmail] = useState('');
+export function MailDrawer({
+  email,
+  setEmail,
+  setStep,
+}: {
+  email: string;
+  setEmail: (email: string) => void;
+  setStep: (step: number) => void;
+}) {
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
@@ -83,6 +91,7 @@ function Socials() {
 
 function Actions({ email, setStep }: { email: string; setStep: (step: number) => void }) {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const { sendCode } = useLoginWithEmail();
   return (
     <View className="w-full flex-row justify-between p-4 ">
       <View className="flex-1" />
@@ -90,7 +99,9 @@ function Actions({ email, setStep }: { email: string; setStep: (step: number) =>
         variant="floating-negative"
         text="Access"
         disabled={!emailRegex.test(email)}
-        onPress={() => {
+        onPress={async () => {
+          await sendCode({ email });
+          console.log('Code sent to', email);
           setStep(2);
         }}
         icon={<ChevronRight color="black" size={16} strokeWidth={3} />}
